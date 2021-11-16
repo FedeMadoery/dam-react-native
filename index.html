@@ -1,0 +1,1478 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css">
+    <link href="css/prism.css" rel="stylesheet"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <script src="js/prism.js"></script>
+    <!-- Printing and PDF exports -->
+    <script>
+        let link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<!--
+    Logo, fixeado en la esquina superior derecha.
+-->
+<img src="assets/logo/Blanco.png" style="height: 40px;position: absolute;right: 0;">
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+<div class="reveal">
+    <div class="slides">
+        <section id="start">
+            <h1>React / React Native</h1>
+            <h4>(y algo de JavaScript)</h4>
+            <img src="assets/logo.svg" class="logo" style="border: none; background: transparent;box-shadow: none">
+            <p>
+                <small>
+                    <a href="">D</a>iseño de <a href="">A</a>plicaciones <a href="">M</a>oviles
+                </small>
+            </p>
+        </section>
+        <section>
+            <section>
+                <h2>React Native</h2>
+                <p>
+                    React Native, usa JavaScript para acceder a las API de la plataforma nativa, así como para describir
+                    la renderización y el comportamiento de su UI usando componentes React.
+                </p>
+            </section>
+            <section>
+                <h2>Componentes Principales</h2>
+                <img src="./assets/componentes_react_native.png" class="fragment" alt="componentes principales">
+            </section>
+        </section>
+        <section>
+            <h3>¿Qué es Reactjs?</h3>
+            Reactjs es una librería JavaScript para construir interfaces de usuario.
+            Es la V en MVC.
+            <aside class="notes">
+                <p>
+                    ¿Qué queremos decir con esto y cómo se diferencia de un framework como Angular?
+                </p>
+                <p>
+                    Con React, armamos componentes reutilizables en JavaScript, que luego son usados en una view. Eso es
+                    el core de Reactjs. Nada más (en realidad hay más cosas, pero finjamos que no, por ahora)
+                </p>
+                <p>
+                    Con Angular, tenemos un framework que intenta manejar toda la experiencia de usuario y nos limita en
+                    la arquitectura.
+                </p>
+                <p>
+                    Por ejemplo, existen librerías o paquetes que nos permiten hacer una SPA con React, (no son parte
+                    del core), pero también podemos tener una aplicación hecha con cualquier tecnología (Laravel,
+                    Django, lo que sea) que nos sirva múltiples views, y usar Reactjs sólo en algunas de ellas (y usar
+                    distintos componentes entre ellas, también)
+                </p>
+            </aside>
+        </section>
+        <section>
+            <h3>¿Cómo construye interfaces de usuario?</h3>
+            React propone construir las interfaces de usuario creando y combinando <b>Componentes</b> encapsulados que
+            manejan su propio estado.
+        </section>
+        <section id="component">
+            <h3>¿Qué es un componente?</h3>
+            <img src="assets/un%20componente%20es%20refrigerador.gif">
+        </section>
+        <section>
+            <h3>¿Qué es un componente?</h3>
+            Un componente es una clase que extiende <code>React.Component</code> (o una función) e implementa un método
+            <code>render</code> que toma un input y retorna contenido renderizable
+        </section>
+        <section>
+            <pre><code class="language-jsx" contenteditable>
+class HelloMessage extends React.Component {
+  render() {
+    return (
+      &lt;div>
+        Hello {this.props.name}
+      &lt;/div>
+    );
+  }
+}
+
+ReactDOM.render(
+  &lt;HelloMessage name="world!" />,
+  mountNode
+);
+					</code></pre>
+        </section>
+        <section>
+            <h3>¿Qué es esa sintaxis rara que parece HTML?</h3>
+            <img src="assets/despacio%20cerebrito.gif">
+            <aside class="notes">
+                No sé si habrán notado que en la diapositiva anterior teníamos un "div" suelto en medio de nuestro
+                código (ni siquiera como un string, sino como si fuera sintaxis válida). Eso no es JavaScript pelado,
+                sino JSX.
+            </aside>
+        </section>
+        <section id="jsx">
+            <h3>JSX</h3>
+            JSX es una extensión de sintaxis de JavaScript, creada por Facebook, y que imita HTML (o XML).
+            JSX es compilado a llamadas a <code>React.createElement()</code>
+            <aside class="notes">
+                <p>No es obligatorio usar JSX con Reactjs, pero es la opción más popular e intuitiva para escribir el
+                    markup de las vistas. Durante las clases, <b>TODO</b> se va a hacer con JSX</p>
+                <p>No lo hemos mencionado, pero si prestan atención estamos creando nuestro HTML <i>dentro</i> de
+                    js.</p>
+                <p>React propone no separar el markup y la lógica en distintos archivos, argumentando que la lógica
+                    de renderización está inherentemente relacionada con la lógica de los eventos, cambios de estado,
+                    etc</p>
+            </aside>
+        </section>
+        <section>
+            <h3>Trabajando con JSX</h3>
+            <aside class="notes">
+                <p>Ya volveremos con los componentes, pero primero vamos a hablar un poco de JSX para que vean los
+                    conceptos más importantes (y la sintaxis)</p>
+            </aside>
+        </section>
+        <section>
+            <section>
+                <h3>Embebiendo expresiones JavaScript en JSX</h3>
+                <aside class="notes">
+
+                    ¿Alguien sabe qué es una expresión en JavaScript? (vs un statement)
+
+                </aside>
+            </section>
+
+            <section>
+                <ul>
+                    <li class="fragment">Una expresión produce un valor y puede ser escrita en cualquier lugar en donde
+                        se espere un valor.
+                    </li>
+                    <li class="fragment">Un statement define comportamiento, pero no evalúa a un valor</li>
+                    <li class="fragment">Siempre que se espere un statement, se puede usar una expresión (pero no a la
+                        inversa)
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Por ejemplo</h3>
+                <h4>Válido:</h4>
+                <pre><code class="language-jsx fragment" contenteditable>
+a = 1
+                </code></pre>
+                <pre><code class="language-jsx fragment" contenteditable>
+a = 1 + 3
+                </code></pre>
+                <pre><code class="language-jsx fragment" contenteditable>
+a = 1 + (x ? 3 : 0)
+                </code></pre>
+                <h4>Inválido:</h4>
+                <pre><code class="language-jsx fragment" contenteditable>
+a = if x 3 else 0 // No, no y noo
+                </code></pre>
+                <pre><code class="language-jsx fragment" contenteditable>
+a = while(n){n--} // Error: expected Dev and found Simio
+                </code></pre>
+
+                <aside class="notes">
+                    a = while(n){n--} // Error: expected Dev and found Simio
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h4>Se puede embeber cualquier expresión JavaScript en JSX, poniéndola entre llaves:</h4>
+            <pre><code class="language-jsx" contenteditable>
+function formatName(user) {
+  return user.firstName + ' ' + user.lastName;
+}
+
+const user = {
+  firstName: 'Juan',
+  lastName: 'Tonina'
+};
+
+const element = (
+  &lt;h1>
+    Hello, {formatName(user)}!
+  &lt;/h1>
+);
+//...
+            </code></pre>
+        </section>
+        <section>
+            <section>El código JSX compila a expresiones JavaScript (llamadas a funciones) que luego evalúan a objetos
+                JavaScript, por lo que podemos utilizar estas expresiones como cualquier otra (dentro de un
+                <code>if</code>,
+                pasarlas como parámetro, retornarlas, etc.)
+                <aside class="notes">
+                    JSX preprocesa el código y convierte todo el código JSX en llamadas a React.createElement()
+                </aside>
+            </section>
+            <section>
+                <h4>Los elementos JSX pueden tener hijos</h4>
+                <pre><code class="language-jsx" contenteditable>
+const resto = ['tercero', 'cuarto', 'quinto'];
+const elem =
+&lt;div>
+    &lt;ul>
+        &lt;li>Primero&lt;/li>
+        &lt;li>{"Segundo"}&lt;/li>
+         {resto.map((message) => &lt;li>{message}&lt;/li>)}
+    &lt;/ul>
+&lt;/div>
+                </code></pre>
+                <aside class="notes">
+                    ¿Todo el mundo conoce las funciones lambda? O, mejor dicho, se entiende qué está haciendo el "resto
+                    .map"? Porque por ahí conocen las funciones lambda y no conocen la función map. O por ahí conocen
+                    lambda y map pero no conocen las arrow functions
+                </aside>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+const miFuncAnonima = function(){
+            return "Hola Bart, estoy tejiendo en un telar";
+        };
+const miArrowFunc = () => "Hola Bart, estoy tejiendo en un telar";
+
+const dameUnId = obj => obj.id;
+
+const arrayDeCosas = [
+{name: "El cochiloco", id: 1},
+{name: "Cosme Fulanito", id: 2}
+];
+
+arrayDeCosas.map(dameUnId); //  retorna [1, 2]
+arrayDeCosas.map(obj => obj.id); // retorna [1, 2]
+
+                </code></pre>
+                <aside class="notes">
+                    <p>
+                        En la primera línea podemos ver una declaración de una función anónima (no, el nombre no es
+                        "miFuncAnonima", esa es una variable a la que se le asigna el objeto que estamos creando) con la
+                        sintaxis tradicional.
+                    </p>
+                    <p>
+                        En la segunda, la misma función pero con la sintaxis de arrow function. (Explico lo del
+                        "this")
+                    </p>
+                    <p>En la tercera, podemos ver una arrow function con un solo parámetro, por lo que podemos
+                        obviar los paréntesis a su alrededor (es equivalente a : (obj)).
+                        El retorno de las arrow function es implícito si solamente tiene un statement y no tiene
+                        llaves. Es equivalente a: return obj.id entre llaves )
+                    </p>
+                    <p>Después tenemos un array que nos sirve para ver los ejemplos finales, es un array de objetos
+                        comunes y silvestres</p>
+                    <p>Acá es cuando usamos el .map, que nos retorna un array nuevo que se construye a partir del
+                        retorno de cada una de las invocaciones al callback (la función que le pasamos como
+                        parámetro). Ambos ejemplos son equivalentes.</p>
+                </aside>
+            </section>
+            <section>
+                <img src="assets/story_arrow_functions.gif">
+            </section>
+        </section>
+        <section id="element">
+            Antes de volver a <code>Components</code>, vamos a hablar de <code>Elements</code>
+            <aside class="notes"><p>Los elements son la unidad mínima de Reactjs, los "ladrillos" o "bloques de
+                construcción" de una app en React.</p></aside>
+        </section>
+        <section>
+            A diferencia de los elementos del DOM, los elementos de React son objetos planos, y livianos para crear.
+            El DOM virtual de React se encarga de actualizar el DOM real correspondiente.
+            <pre><code class="language-jsx" contenteditable>
+const element = &lt;h1>Hello, world&lt;/h1>;
+ReactDOM.render(element, document.getElementById('root'));
+            </code></pre>
+            <aside class="notes">
+                Los elementos de React son inmutables. Con el conocimiento que tenemos hasta ahora, la única forma de
+                actualizar un elemento es creándolo de nuevo y pasándolo a <code>ReactDOM.render()</code>
+                * Después vamos a ver que esta no es la forma ideal, y que solamente necesitamos llamar a
+                <code>ReactDOM.render()</code> una sola vez usando componentes stateful.
+            </aside>
+        </section>
+        <section>
+            <p>React DOM compara los elementos y sus hijos con los anteriores, y solamente aplica los cambios necesarios
+                para llevar el DOM al estado deseado.</p>
+            <pre><code class="language-jsx" contenteditable>
+function tick() {
+  const element = (
+    &lt;div>
+      &lt;h1>Hello, world!&lt;/h1>
+      &lt;h2>It is {new Date().toLocaleTimeString()}.&lt;/h2>
+    &lt;/div>
+  );
+  ReactDOM.render(element, document.getElementById('root'));
+}
+
+setInterval(tick, 1000);
+            </code></pre>
+            <p><q>Pensar en <i>cómo debe verse la UI en un momento</i> en lugar de <i>cómo cambiarlo en el tiempo</i>
+                elimina muchos errores potenciales
+            </q>- Web de Reactjs</p>
+        </section>
+        <section><img src="assets/granular-dom-updates.gif">
+            <aside class="notes">
+                Acá podemos ver cómo el DOM se actualiza sólo en los nodos modificados (en este caso, el texto dentro
+                del nodo H2, resaltado en cada tick. Si se fijan con atención, pueden ver que "It is" no se actualiza,
+                porque si volvemos al código, podemos ver que es una constante ( está fuera de las llaves, así que React
+                reconoce que es independiente del new Date() ))
+            </aside>
+        </section>
+        <section id="component2">
+            <h2>Componentes</h2>
+
+            <p>Conceptualmente, los componentes son como funciones JavaScript: Aceptan input arbitrario ("props") y
+                retornan elementos React qué aparece en pantalla.</p>
+        </section>
+        <section>
+            La forma más sencilla de definir un componente, es a través de una función (y más comun hoy en dia):
+            <pre><code class="language-jsx" contenteditable>
+// Componente funcional
+function Welcome(props) {
+  return &lt;h1>Hello, {props.name}&lt;/h1>;
+}
+            </code></pre>
+            <aside class="notes">
+                Esta función es un componente React válido porque acepta un parámetro "props" y retorna un elemento
+                React. Estos componentes se llaman "Componentes funcionales" porque literalmente son una función
+                JavaScript.
+            </aside>
+        </section>
+        <section>
+            También podemos definir el mismo componente usando clases de ES6:
+            <pre><code class="language-jsx" contenteditable>
+class Welcome extends React.Component {
+  render() {
+    return &lt;h1>Hello, {this.props.name}&lt;/h1>;
+  }
+}
+            </code></pre>
+            <aside class="notes">Definir los componentes como clases o como funciones nos da algunas libertades y funcionalidades que
+                vamos a ver más adelante
+            </aside>
+        </section>
+        <section>
+            Los componentes pueden referenciar a otros componentes, por ejemplo:
+            <pre><code class="language-jsx" contenteditable>
+
+function App() {
+  return (
+    &lt;div>
+      &lt;Welcome name="Sara" />
+      &lt;Welcome name="Cahal" />
+      &lt;Welcome name="Edite" />
+    &lt;/div>
+  );
+}
+
+ReactDOM.render(
+  &lt;App />,
+  document.getElementById('root')
+);
+            </code></pre>
+            <aside class="notes">
+                Esta estructura con un componente <i>App</i> que sirve de raíz y contiene a todos los
+                otros componentes es la más común. Sin embargo no es obligatoria, y podemos encontrar apps sin una raíz
+                única.
+            </aside>
+        </section>
+        <section>
+            <h2>Las props son read-only</h2>
+            Al definir un componente, debemos asegurarnos de <b>no modificar</b> las props. En otras palabras, la
+            <code>function</code> debe ser una función pura con respecto a las props.
+            <aside>
+                Una función es pura si siempre retorna el mismo resultado para el mismo input y no tiene side effects
+                visibles.
+            </aside>
+        </section>
+        <section>
+            Hasta ahora, la única forma de modificar un componente, era recreándolo y llamando a render de
+            nuevo
+            <img src="assets/hay%20otra%20forma.gif">
+        </section>
+        <section>
+            <h2>State y ciclos de vida</h2>
+        </section>
+        <section id="state">
+            <h3>State</h3>
+        </section>
+        <section>
+            Consideremos el componente Reloj:
+            <pre><code class="language-jsx" contenteditable>
+function Reloj(props) {
+    return (
+      &lt;div>
+        &lt;h1>Hello, world!&lt;/h1>
+        &lt;h2>It is {props.date.toLocaleTimeString()}.&lt;/h2>
+      &lt;/div>
+    );
+}
+            </code></pre>
+            <aside class="notes">
+                Si recuerdan, esto debía ser pasado a ReactDOM.render cada segundo para actualizar el DOM.
+                Antes mencionamos que los components definidos como funciones tenían algunos features extra, comparados con
+                los componentes de clases.
+                El useState es un buen ejemplo de eso: una funcionalidad exclusiva de los componentes definidos como
+                funciones.
+            </aside>
+        </section>
+        <section>
+            <pre><code class="language-jsx" contenteditable>
+function Reloj(props) {
+    const [date, setDate] = useState(new Date());
+
+    return (
+      &lt;div>
+        &lt;h1>Hello, world!&lt;/h1>
+        {/*Reemplazamos props por date.*/}
+        &lt;h2>It is {date.toLocaleTimeString()}.&lt;/h2>
+      &lt;/div>
+    );
+}
+
+ReactDOM.render(
+  &lt;Reloj />,
+  document.getElementById('root')
+);
+            </code></pre>
+            <aside class="notes">
+                Acá hicimos dos cosas:
+                <ol>
+                    <li>Reemplazamos this.props date. De paso podemos ver la sintaxis de comentarios en JSX.
+                        (ni los comentarios JavaScript ni los de HTML son comentarios válidos en JSX).
+                        (Los comentarios JS son interpretados como texto, y los comentarios HTML dan error de sintaxis)
+                    </li>
+                    <li>
+                        Agregamos un HOOK en el que definimos el estado inicial de la propiedad y recibimos como resultado dos cosas, un "date" y un "setDate"
+                    </li>
+                </ol>
+                Pero todavía no resolvimos el tema de la actualización del reloj (solamente encapsulamos todo el
+                comportamiento de Reloj en el componente, a diferencia del ejemplo que vimos al comienzo, en el que
+                llamábamos al render cada segundo.
+            </aside>
+        </section>
+        <section id="how-touse-state">
+            <h2>Uso correcto del State</h2>
+            <section>
+                <h3>
+                    ¡No se debe modificar el State directamente!
+                </h3>
+                <pre><code class="language-jsx fragment" contenteditable>
+const [state, setState] = useState({comment: ''});
+// Horrible
+state = 'Hello';
+                </code></pre>
+                <pre><code class="language-jsx fragment" contenteditable>
+// Me parece correctín
+setState({comment: 'Hello'});
+                </code></pre>
+            </section>
+            <section>
+                <h3>Las actualizaciones del State pueden ser asíncronas</h3>
+                <pre><code class="language-jsx" contenteditable>
+// Puede que no ande
+setState({
+  counter: state.counter + props.increment,
+});
+                </code></pre>
+                <aside class="notes">
+                    <p>React puede hacer un batch de múltiples llamadas a setState y ejecutarlas en una sola
+                        actualización
+                        por cuestiones de performance.</p>
+
+                    <p>Como props y state puede ser actualizado de forma asíncrona, no podemos confiar en sus
+                        valores para calcular el próximo estado</p>
+
+                </aside>
+            </section>
+            <section>
+                Si necesitamos el estado previo, usamos una versión especial de setState que acepta una función a la que
+                se le pasa como primer parámetro el estado previo, y como segundo las props actuales (al momento del
+                update).
+                <pre><code class="language-jsx" contenteditable>
+// Este código sí se puede ver
+setState( prevState => ({
+  counter: prevState.counter + props.increment
+}));
+
+            </code></pre>
+                <aside class="notes">Noten que la función debe retornar un objeto.</aside>
+            </section>
+        </section>
+        <section id="lifecycle">
+            <h3>Ciclo de Vida</h3>
+            Queremos actualizar el state cada segundo, a partir del momento en que se renderice el Component.
+            Para esto vamos a crear un intervalo al momento de renderizar, y vamos a detenerlo cuando el componente se
+            elimine.
+            <aside class="notes">
+                Para resolver este problema necesitamos un contador al principio, que empiece en la hora actual
+                y actualice el state cada un segundo
+            </aside>
+        </section>
+        <section>
+            <pre data-line="6-12"><code class="language-jsx" contenteditable>
+function Reloj(props) {
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+        // Se monto el componente
+
+        return () => {
+            // Se desmontó el componente
+        };
+
+  }, []);
+...
+            </code></pre>
+            <aside class="notes">
+                <p>
+                    Para eso vamos a usar una function muy particular, llamada useEffect. Esta function resive como parametro otra function que a la vez, retorna una funcion.
+                    Esto puede sonar muy loco, pero es lo que hace que useEffect sea muy útil. La función que recibe useEffect, es la que se ejecuta cuando el componente se monta
+                    y la funcion que se retorna, se ejecuta cuando el componente se desmonta.
+                </p>
+
+            </aside>
+        </section>
+        <section>
+            <pre><code class="language-jsx" contenteditable>
+ useEffect(() => {
+    const timerID = setInterval(
+     () => tick(),
+     1000
+    );
+
+    return () => {
+        // Se desmontó el componente
+    };
+
+  }, []);
+            </code></pre>
+            <p>Agregamos el clean up.</p>
+            <pre><code class="language-jsx" contenteditable>
+ useEffect(() => {
+    const timerID = setInterval(
+     () => tick(),
+     1000
+    );
+    setTimerID(timerID);
+
+    return () => {
+        clearInterval(timerID);
+    };
+
+ }, []);
+
+
+            </code></pre>
+            <aside class="notes">
+                <p>El método useEffect se ejecuta después de que elemento se renderiza en el DOM.</p>
+                <p>Guardamos el ID del intervalo en una variable (useState)</p>
+                <p>Detenemos el intervalo al desmontar el componente.</p>
+            </aside>
+        </section>
+        <section id="event">
+            <p>Moverlo RN</p>
+
+            <section><h1>Eventos</h1></section>
+            <section>
+                Los eventos en React son similares a los eventos del DOM, pero con algunas diferencias:
+                <pre><code class="language-jsx" contenteditable>
+
+const ActionLink = () => {
+  const handleClick = (e) => {
+    /*La única forma de prevenir el comportamiento por defecto
+        es usando e.preventDefault() (y no retornando false)*/
+    e.preventDefault();
+    console.log('Clickity.');
+  }
+
+  return (
+    /*el evento se escribe con camelCase ("onClick") y
+        no en minúsculas*/
+    &lt;a href="#" onClick={handleClick}>
+      Click me
+    &lt;/a>
+  );
+}
+            </code></pre>
+            </section>
+            <section>
+            <p>Moverlo RN</p>
+            <pre><code class="language-jsx" contenteditable>
+function Toggle(props)  {
+   const [isToggleOn, setToggle] = useState(true);
+
+  handleClick = () => {
+    setState(prevState => !prevState.isToggleOn);
+  }
+
+  render() {
+    return (
+      &lt;button onClick={handleClick}>
+        {isToggleOn ? 'ON' : 'OFF'}
+      &lt;/button>
+    );
+  }
+}
+
+            </code></pre>
+        </section>
+
+        </section>
+        <section id="conditional">
+            <h2>Renderizado condicional</h2>
+        </section>
+        <section>
+            <p>El renderizado condicional en React funciona de la misma manera que los condicionales de JavaScript</p>
+            <pre data-line="4-9, 12"><code class="language-jsx" data-trim contenteditable>
+function Greeting(props) {
+  const {isLoggedIn} = props;
+  if (isLoggedIn) {
+    return &lt;UserGreeting/>;
+  }
+  return &lt;GuestGreeting/>;
+}
+
+ReactDOM.render(
+  &lt;Greeting isLoggedIn={false}/>,
+  document.getElementById('root')
+);
+            </code></pre>
+            <aside class="notes">De hecho, la lógica de renderizado se escribe en JavaScript (aunque a veces esté
+                embebido en JSX)
+            </aside>
+        </section>
+        <section>
+            Podemos usar variables para almacenar elementos
+            <pre><code class="language-jsx" contenteditable>
+function Login(props) {
+  const isLoggedIn = props.isLoggedIn;
+
+  const button = isLoggedIn ? (
+    &lt;LogoutButton onClick={handleLogoutClick}/>
+  ) : (
+    &lt;LoginButton onClick={handleLoginClick}/>
+  );
+
+  return (
+    &lt;div>
+      &lt;Greeting isLoggedIn={isLoggedIn}/>
+      {button}
+    &lt;/div>
+  );
+}
+            </code></pre>
+        </section>
+        <section>
+            También podemos interpolar la lógica en JSX
+            <pre data-line="8-11"><code class="language-jsx" contenteditable>
+function Mailbox(props) {
+  const unreadMessages = props.unreadMessages;
+  return (
+    &lt;div>
+      &lt;h1>Hola!&lt;/h1>
+      {unreadMessages.length > 0 &&
+        &lt;h2>
+          Hay {unreadMessages.length} mensajes sin leer.
+        &lt;/h2>
+      }
+    &lt;/div>
+  );
+}
+            </code></pre>
+            <aside class="notes">
+                ¿Quién me puede decir por qué esto funciona? //Explico el && y el || en JavaScript (y que React no
+                renderiza true, false, null ni undefined)
+            </aside>
+        </section>
+        <section>
+            Para evitar que un componente se renderize, podemos retornar <code>null</code> en lugar de un elemento
+            <pre><code class="language-jsx" contenteditable>
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    &lt;div className="warning">
+      Warning!
+    &lt;/div>
+  );
+}
+            </code></pre>
+        </section>
+        <section id="list">
+            <h2>Listas y keys</h2>
+        </section>
+        <section>
+            Trabajar con listas en React es bastante sencillo, y podemos crear listas de elementos o componentes de
+            la misma forma que crearíamos listas de cualquier tipo.
+            <pre><code class="language-jsx" contenteditable>
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    &lt;li>{number}&lt;/li>
+  );
+  return (
+    &lt;ul>{listItems}&lt;/ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  &lt;NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+            </code></pre>
+            <aside class="notes">
+                ¿Se acuerdan del método map?
+                Acá estamos retornando un array de elementos "li" que después insertaremos dentro de una lista sin orden
+                (ul). Ahora, si probamos esto vamos a ver un warning: https://codepen.io/gaearon/pen/jrXYRR?editors=0011
+                La solución es agregar una key (key={number.toString()} por ejemplo)
+            </aside>
+        </section>
+        <section>
+            <h3>¿Para qué sirve la key?</h3>
+            <section>
+                Las key ayudan a React a identificar qué items se han agregado, modificado o eliminado. Las keys deben
+                ser únicas entre los elementos "hermanos" (pero no necesitan ser únicas globalmente)
+
+                <aside class="notes">
+                    <p>Vamos a ver un ejemplo, que es la forma más fácil de entender para qué sirva la key
+                        http://output.jsbin.com/wohima</p>
+                    <p>En definitiva: debemos encontrar una key única por cada elemento (si nuestro datasource no tiene
+                        ninguna key usable, es recomendable <b>crear</b> una key solamente con ese propósito.</p>
+                    <p>Por defecto, React usa el índice (que es una mala idea en general, como vimos en el ejemplo
+                        anterior)</p>
+                    <p>Como la key no necesita ser única globalmente, podemos usar el mismo datasource para crear dos
+                        listas y en ambas usar el id como key, por ejemplo</p>
+                </aside>
+            </section>
+
+            <section>
+                La key debe ser ubicada en el componente o elemento a repetir, y no en su contenido
+                <aside class="notes">
+                    <p>En general, la key va en el cuerpo del callback de .map
+                        https://codepen.io/gaearon/pen/ZXeOGM?editors=0010</p>
+
+                    <p>Otra cosa importante es que no podemos acceder a la key dentro de un componente, por lo que si
+                        usamos un id como key, y además necesitamos el id para otra cosa (dentro del component) debemos
+                        pasarlo como una prop aparte</p>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section><h3>Componentes controlados</h3>
+                <p>React encara el problema de los formularios con <i>Controlled Components</i>. Que son componentes que
+                    renderizan un formulario y, a su vez, controlan su comportamiento frente al input de usuario</p>
+                <aside class="notes">
+                    Es decir, React controla la parte de renderización del formulario, y usa el state como fuente de
+                    datos para el formulario.
+                </aside>
+            </section>
+            <section><pre><code class="language-jsx" contenteditable>
+function NameForm(props){
+    const [value, setValue] = useState({value: ''});
+
+    handleChange = (event) => {
+        setState({value: event.target.value});
+    }
+
+    handleSubmit = (event) => {
+        alert('A name was submitted: ' + state.value);
+        event.preventDefault();
+    }
+
+    return (
+      &lt;form onSubmit={handleSubmit}>
+        &lt;label>
+          Name:
+          &lt;input type="text" value={state.value} onChange={handleChange}/>
+        &lt;/label>
+        &lt;input type="submit" value="Submit"/>
+      &lt;/form>
+    );
+}
+        </code></pre>
+                <aside class="notes">
+                    <p>Si se fijan, actualizamos el state en cada cambio (cada vez que el usuario presiona una tecla),
+                        por
+                        lo que el value del input se va a actualizar inmediatamente. Veamos el ejemplo en vivo, y qué
+                        pasa
+                        si sacamos o modificamos el método hanldeChange
+                        https://codepen.io/FMadoery/pen/WNEgwgW?editors=0010
+                    </p>
+
+                </aside>
+            </section>
+            <section>
+                <h4>Múltiples inputs</h4>
+                <p>Cuando necesitamos manejar múltiples inputs, podemos agregar una propiedad "name" a cada elemento, y
+                    dejar que el handler elija qué hacer de acuerdo al valor de <code>event.target.name</code></p>
+            </section>
+            <section>
+                <pre data-line="6,9,19,28"><code class="language-jsx" contenteditable>
+    const initialValues = {
+        isGoing: false,
+        numberOfGuests: 0,
+    };
+
+    const [state, setState] = useState(initialValues);
+
+    handleInputChange = (event) => {
+      //De la documentación oficial. Yo lo haría un poco diferente.
+      const target = event.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+
+      setState( prevState => ({
+        ...prevState,
+        [name]: value
+      });
+    }
+
+  return (
+    &lt;form>
+      &lt;label>
+        Is going:
+        &lt;input
+                name="isGoing"
+                type="checkbox"
+                checked={state.isGoing}
+                onChange={handleInputChange}/>
+      &lt;/label>
+      &lt;br/>
+      &lt;label>
+        Number of guests:
+        &lt;input
+                name="numberOfGuests"
+                type="number"
+                value={state.numberOfGuests}
+                onChange={handleInputChange}/>
+      &lt;/label>
+    &lt;/form>
+  );
+}
+            </code></pre>
+            </section>
+        </section>
+        <section id="lifting">
+            <section>
+                <h2>Levantando el estado</h2>
+                <p>En React, llamamos "lifting state up" al proceso de mover el estado de un componente al componente
+                    inmediatamente superior en la jerarquía. Esto es útil cuando el estado debe ser compartido entre
+                    varios componentes</p>
+                <aside class="notes">
+                    <p>Ahora vamos a ver un ejemplo, para que vean cómo podemos convertir un componente a un componente
+                        controlado. (Porque hasta ahora solamente lo habíamos visto con elements. El proceso es el
+                        mismo).</p>
+                    <p>Vamos a usar el ejemplo de la documentación oficial, porque si bien es innecesariamente
+                        complicado, es un buen ejemplo de una situación que se puede dar en una app real</p>
+                </aside>
+            </section>
+            <section>
+<pre><code class="language-jsx" contenteditable>
+function Calculator() {
+    const [state, setState] = useState({temperature: ''});
+
+    const handleChange = (e) => {
+        setState({temperature: e.target.value});
+    }
+
+    return (
+      &lt;fieldset>
+        &lt;legend>Enter temperature in Celsius:&lt;/legend>
+        &lt;input
+                value={state.temperature}
+                onChange={handleChange}/>
+        &lt;BoilingVerdict
+                celsius={parseFloat(temperature)}/>
+      &lt;/fieldset>
+    );
+  }
+}
+</code></pre>
+                <aside class="notes">
+
+                    <p>BoilingVeredict es un componente que nos dice si el agua está hirviendo o no.
+                        //Ejemplo del primer input: https://codepen.io/gaearon/pen/ZXeOBm?editors=0010</p>
+                    <p>¿Pero qué pasa si tenemos que agregar otro input, que permita ingresar la temperatura en
+                        Fahrenheit? (Y que ambos inputs estén vinculados, es decir, que se actualicen
+                        simultáneamente)</p>
+
+                </aside>
+            </section>
+            <section>
+                Empezamos por extraer el input como un componente aparte (TemperatureInput)
+                <pre><code class="language-jsx" contenteditable>
+const scaleNames = {
+  c: 'Celsius',
+  f: 'Fahrenheit'
+};
+
+function TemperatureInput () {
+  const [state, setState] = useState({ temperature: "" });
+
+  const handleChange = (e) => {
+    setState({ temperature: e.target.value });
+  };
+
+    return (
+      &lt;fieldset>
+        &lt;legend>Enter temperature in {scaleNames[props.scale]}:&lt;/legend>
+        &lt;input value={state.temperature}
+               onChange={handleChange}/>
+      &lt;/fieldset>
+    );
+}
+                </code></pre>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+function Calculator() {
+  render() {
+    return (
+      &lt;div>
+        &lt;TemperatureInput scale="c"/>
+        &lt;TemperatureInput scale="f"/>
+      &lt;/div>
+    );
+  }
+}
+            </code></pre>
+                <aside class="notes">
+                    Ahora tenemos dos inputs dentro de Calculator, aunque al modificar uno el otro todavía no se
+                    actualiza. Además, sacamos el BoilingVeredict afuera.
+                </aside>
+            </section>
+            <section>
+                <h4>Moviendo el estado hacia arriba</h4>
+
+                <p>Primero, vamos a reemplazar <code>state.temperature</code> por
+                    <code>props.temperature</code>
+                    en <code>TemperatureInput</code></p>
+                <pre><code class="language-jsx" contenteditable>
+render() {
+    // Antes: state.temperature;
+    value={props.temperature}
+    // ...
+}
+                </code></pre>
+
+                <aside class="notes">
+                    <p>Hasta ahora cada input maneja independientemente su propio estado, que es justamente lo que
+                        queremos evitar. En el siguiente paso vamos a mover el estado desde el TemperatureInput a
+                        Calculator.</p>
+                </aside>
+            </section>
+            <section>
+                <h4>Convirtiendo el componente en <i>Controlled Component</i></h4>
+
+                <p>
+                    Así como &lt;input> tiene un <code>value</code> y un <code>onChange</code>, nuestro component puede
+                    aceptar <code>temperature</code> y <code>onTemperatureChange</code> como props.
+                </p>
+                <aside class="notes">
+                    <p>Ahora, antes dijimos que las props son read only. </p>
+                    <p>Cuando el input usaba el state, tan sólo había que llamar a setState para actualizar la
+                        temperatura, pero ahora que es una prop, no tenemos control sobre ese valor! OH NO!</p>
+                    <p>Para esto vamos a convertir nuestro TemperatureInput en un componente controlado</p>
+                </aside>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+handleChange(e) {
+    // Antes: setState({temperature: e.target.value});
+    props.onTemperatureChange(e.target.value);
+    // ...
+}
+                </code></pre>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+function Calculator() {
+  const [state, setState] = useState({temperature: '', scale: 'c'});
+
+  handleCelsiusChange(temperature) {
+    setState({scale: 'c', temperature});
+  }
+
+  handleFahrenheitChange(temperature) {
+    setState({scale: 'f', temperature});
+  }
+
+  const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
+  const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+  return (
+  &lt;div>
+    &lt;TemperatureInput
+            scale="c"
+            temperature={celsius}
+            onTemperatureChange={handleCelsiusChange}/>
+
+    &lt;TemperatureInput
+            scale="f"
+            temperature={fahrenheit}
+            onTemperatureChange={handleFahrenheitChange}/>
+
+    &lt;BoilingVerdict
+            celsius={parseFloat(celsius)}/>
+
+  &lt;/div>
+  );
+  }
+}
+                </code></pre>
+                <aside class="notes">
+                    Veamos la versión actualizada de Calculator, pasando los callbacks como props
+                </aside>
+            </section>
+        </section>
+        <section id="composition">
+            <section><h2>Composición vs herencia</h2>
+                <aside class="notes">
+                    <p>Esta sección se llama "Composición vs herencia" porque así se llama la sección en la
+                        documentación de
+                        React, pero en realidad la parte de herencia en React se puede resumir en lo siguiente: No hay
+                        herencia
+                        en React. https://es.reactjs.org/docs/composition-vs-inheritance.html</p>
+                    <p> En realidad sí se puede usar herencia, la herencia normal de las clases de JavaScript (así como
+                        extendemos React.Component, podemos extender nuestros componentes, pero está fuertemente
+                        recomendado
+                        usar composition en lugar de herencia, porque la herencia empieza a ser problemática <b>muy
+                            pronto</b>)
+                    </p>
+                    <p>Existen los HOC (higher order components, componentes de order superior), que vamos a ver
+                        BASTANTE más adelante, que podrían estar considerados dentro de esta categoría</p>
+                </aside>
+            </section>
+            <section>
+                <h4>Composition</h4>
+                <p>Muchas veces pensamos en un componente como una versión especializada de otro componente más
+                    generico.
+                    Por ejemplo "ErrorMessage" es una versión más específica de "Message".</p>
+                <p>En React, esto se resuelve usando composition</p>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+function ErrorMessage(){
+    return &lt;Message className={"Error"} message={"El auto no está, el auto no está"}/>
+}
+                </code></pre>
+                <aside class="notes">
+                    <p>Este patrón (la versión específica inicializando a la genérica con algunas props específicas) se
+                        denomina Specialization. Y es la forma de hacer con composition lo que en otro framework
+                        haríamos con herencia (probablemente definiríamos un ErrorMessage que extiende Message y
+                        sobreescribe class y message</p>
+                </aside>
+            </section>
+            <section>
+                Otro escenario en el que podemos usar composition es cuando tenemos componentes que aceptan otros
+                componentes como props.
+            </section>
+            <section>
+                <h4><code>props.children</code></h4>
+                <code>props.children</code> es una propiedad especial de React, con la que podemos pasar elementos o
+                componentes arbitrarios a un componente para ser renderizados.
+                <aside class="notes">
+                    Ahora vamos a ver un ejemplo, pero es una propiedad que por defecto es undefined (como cualquier
+                    otra propiedad) y que puede ser un array o un string o elemento... o component... o de hecho puede
+                    ser una función (esto lo vamos a ver más adelante) o lo que sea.
+                </aside>
+            </section>
+            <section>
+                <pre data-line="6"><code class="language-jsx" contenteditable>
+function FancyBorder(props) {
+  return (
+    &lt;div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    &lt;/div>
+    );
+}
+    </code></pre>
+                <pre data-line="6-11"><code class="language-jsx" contenteditable>
+function WelcomeDialog() {
+  return (
+    &lt;FancyBorder color="blue">
+      &lt;h1 className="Dialog-title">
+        Welcome
+      &lt;/h1>
+      &lt;p className="Dialog-message">
+        Thank you for visiting our spacecraft!
+      &lt;/p>
+    &lt;/FancyBorder>
+  );
+}
+                </code></pre>
+                <aside class="notes">
+                    <p>Un escenario común en el que se usa props.children es cuando tenemos dialogs, o containers de
+                        cualquier tipo. Generalmente son componentes que se encargan de organizar el layout del
+                        contenido</p>
+                    <p>En el contenedor (FancyBorder) renderizamos un div y el contenido que le pasemos como
+                        props.children</p>
+                    <p>Cuando llamamos a FancyBorder con elementos como contenido (un h1 y un p), estos se pasan al
+                        control y se renderizan</p>
+                </aside>
+            </section>
+            <section>
+                También se pueden pasar componentes como props normales, con la sintaxis normal de cualquier prop
+                <pre><code class="language-jsx" contenteditable>
+function App() {
+  return (
+    &lt;SplitPane
+            left={
+        &lt;Contacts/>
+      }
+      right={
+        &lt;Chat/>
+      } />
+  );
+}
+
+                </code></pre>
+            </section>
+            <section><img src="assets/este%20capitulo.gif"></section>
+            <aside class="notes">
+                Con esto terminamos la parte de básica de Reactjs y su core.
+            </aside>
+        </section>
+        <section>
+            <section>
+                <h2>Fragments</h2>
+                <p>Un patrón común en React es que un componente retorne múltiples elementos. Los fragmentos nos
+                    permiten agrupar una lista de hijos sin agregar elementos extra al DOM</p>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+function Table() {
+    return (
+      &lt;table>
+        &lt;tr>
+          &lt;Columns/>
+        &lt;/tr>
+      &lt;/table>
+    );
+}
+                </code></pre>
+                <aside class="notes">
+                    <p>En este ejemplo, Columns debería retornar una lista de "tds".</p>
+                    <p>Para eso podríamos retornar un array, pero podemos usar una sintaxis mucho más conveniente y
+                        similar a HTML (o más idiomática de JSX)</p>
+
+                </aside>
+            </section>
+            <section>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+function Columns() {
+    return (
+      &lt;React.Fragment>
+        &lt;td>Hello&lt;/td>
+        &lt;td>World&lt;/td>
+      &lt;/React.Fragment>
+    );
+}
+                </code></pre>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+function Columns() {
+    return (
+      &lt;>
+        &lt;td>Hello&lt;/td>
+        &lt;td>World&lt;/td>
+      &lt;/>
+    );
+}
+                </code></pre>
+                <aside class="notes">
+                    <p>La diferencia entre eso y un array parece trivial, pero consideren este otro caso:</p>
+                    <pre><code>
+        "Hello",
+        &lt;MisteryComponent>
+            Hello
+        &lt;/MisteryComponent>,
+        &lt;OtraCosa>
+            Contenido
+        &lt;/OtraCosa>,
+        &lt;MisteryComponent>
+            World
+        &lt;/MisteryComponent>
+                    </code></pre>
+                    <p>En este caso, el primer "hello" debe estar entre comillas, porque no es código JSX, sino
+                        JavaScript, pero el segundo no, porque está dentro de MisteryComponent... y ya se empieza a
+                        complicar</p>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Context</h2>
+                <p>Los contextos nos permiten pasar datos a través del árbol de componentes sin necesidad de pasar las
+                    props manualmente en cada nivel</p>
+                <img style="width: 50%;" src="assets/dev%20rata.jpg" class="fragment">
+                <aside class="notes">
+                    <p>Hablando en serio, hay casos en los que no es práctico pasar una prop a través de toda la
+                        jerarquía y a cada uno de los hijos. Por ejemplo para el theme (light, dark), o preferencias de
+                        usuario, lenguaje, etc</p>
+                </aside>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+function App() {
+  return(
+    return &lt;Toolbar theme="dark"/>;
+  )
+}
+
+function Toolbar(props) {
+  return (
+    &lt;div>
+      &lt;ThemedButton theme={props.theme}/>
+    &lt;/div>
+  );
+}
+
+function ThemedButton(props) {
+  return &lt;Button theme={props.theme}/>;
+}
+                </code></pre>
+                <aside class="notes">
+                    <p>Si uno quisiera usar un theme sin usar contexts, debería hacer algo similar a esto en cada uno de
+                        los componentes. Esto es: recibir una prop theme y pasarla a todos los hijos (aún cuando no la
+                        usemos). Si en algún lugar de la jerarquía necesitamos insertar un componente nuevo, necesitamos
+                        modificarlo para que acepte una prop "theme", y que la propague.</p>
+                </aside>
+            </section>
+            <section>
+                <pre data-line="3, 8, 19, 26-28"><code class="language-jsx" contenteditable>
+const ThemeContext = React.createContext('light');
+
+function App() {
+    return (
+      &lt;ThemeContext.Provider value="dark">
+        &lt;Toolbar/>
+      &lt;/ThemeContext.Provider>
+    );
+}
+
+
+function Toolbar(props) {
+  return (
+    &lt;div>
+      &lt;ThemedButton/>
+    &lt;/div>
+  );
+}
+
+function ThemedButton(props) {
+  return (
+    &lt;ThemeContext.Consumer>
+      {theme => &lt;Button {...props} theme={theme}/>}
+    &lt;/ThemeContext.Consumer>
+  );
+}
+                </code></pre>
+                <aside class="notes">
+                    <p>Usamos un Provider para pasar el theme actual al árbol.
+                        Cualquier componente puede leerlo, sin importar qué tan profundo esté en la jerarquía.</p>
+                    <p>Un componente en el medio (Toolbar) no necesita saber de la existencia de "theme"</p>
+                    <p>Usamos el consumer para leer el theme desde el contexto. React busca hacia arriba y obtiene el
+                        context provider más cercano (los contexts se pueden indentar, en la doc de React lo tratan como
+                        un tema aparte, pero no es nada del otro mundo)</p>
+                </aside>
+            </section>
+            <section>
+                <h3>Actualizando el theme desde un componente hijo</h3>
+                <aside class="notes">
+                    <p>Hablar de themes y pasar props a través de la jerarquía casi que nos obliga a ver un ejemplo de
+                        un context que se modifique desde el hijo y cuyo cambio se propague por toda la jerarquía</p>
+                </aside>
+            </section>
+            <section>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+export const ThemeContext = React.createContext({
+  theme: themes.dark,
+  toggleTheme: () => {},
+});
+                </code></pre>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+import {ThemeContext} from './theme-context';
+
+function ThemeTogglerButton() {
+  return (
+    &lt;ThemeContext.Consumer>
+      {({theme, toggleTheme}) => (
+        &lt;button
+                onClick={toggleTheme}
+                style={{backgroundColor: theme.background}}>
+          Toggle Theme
+        &lt;/button>
+      )}
+    &lt;/ThemeContext.Consumer>
+  );
+}
+
+export default ThemeTogglerButton;
+                </code></pre>
+                <aside class="notes">
+                    <p>Creamos un contexto cuyo valor por defecto contiene un theme y una función dummy
+                        que nos sirve de placeholder (es el valor por defecto si usamos un consumer y React no puede
+                        encontrar un provider).</p>
+                    <p>El consumer recibe el theme y la función (nótese que es un solo parámetro, un objeto, pero
+                        estamos usando esta sintaxis especial para obtener them y toggleTheme por separado. Esto no es
+                        propio de React, sino de las últimas versiones de JavaScript)</p>
+                </aside>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+import {ThemeContext} from './theme-context';
+
+function ThemeTogglerButton() {
+
+  const { toggleTheme, theme }  = React.useContext(ThemeContext)
+
+  return (
+    &lt;button
+            onClick={toggleTheme}
+            style={{backgroundColor: theme.background}}>
+      Toggle Theme
+    &lt;/button>
+  );
+}
+
+export default ThemeTogglerButton;
+                </code></pre>
+                <aside class="notes">
+                    <p>
+                        Haciendo uso de las ventajas de tener componentes funcionales, podemos utilizar el hook de useContext() que nos
+                        permite consumir el valor de un contexto dato. Lo mismo que haciamos con Context.Consumer, pero ahora con una sintaxis más corta.
+                    </p>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Inmutabilidad</h2>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+    giveAwesomePowers(person) {
+      person.powers = ['super-strength', 'flight'];
+      return person;
+    }
+                </code></pre>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+    const person = new Person('Mafe');
+    const otherPerson = new Person('Clark');
+
+    giveAwesomePowers(otherPerson);
+
+    console.log('are they the same?', person === otherPerson);
+
+                </code></pre>
+            </section>
+            <aside class="notes">
+                <p>
+                    En React, es muy importante tener presente el concepto se inmutabilidad, ya que muchas veces nos podemos encontrar con el incombeniente de haber actualizado
+                    una propiedad y que nuestro componente no cambie. Esto porque puede pasar?
+                </p>
+                <p>
+                    Que pasa con este simple ejemplo?
+                    La función giveAwesomePowers muta al objeto person que se ingresa en ella. Si ejecutamos este código; veremos
+                    que la primera vez que imprimimos una persona, Clark no tiene ninguna propiedad specialPower. Pero luego,
+                    la segunda vez, de repente tiene el powers de 'super-strength', 'flight'.
+                    Es importante: las partes internas del objeto han cambiado, pero la referencia del objeto no. Es el
+                    mismo objeto en el exterior (por lo que una comparacion de igualdad como person === otherPerson será true).
+                </p>
+                <p>
+                    Cuando esto sucede en nuestros estados, nos va a impedir que se realice un re renderizado de nuestro componente.
+                    Por lo que una buena práctica, es tener la costumbre de siempre crear una copia de nuestro estado.
+                </p>
+            </aside>
+            <section>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+giveAwesomePowers(person) {
+      return {...person, powers: ['super-strength', 'flight']};
+}
+                </code></pre>
+                <pre class="fragment"><code class="language-jsx" contenteditable>
+handleClick() {
+  setState(prevState => ({
+    person: {...prevState.person, powers: ['super-strength', 'flight']},
+  }));
+};
+                </code></pre>
+                <aside class="notes">
+                    <p>Estos dos ejemplos son equivalentes. Solamente usan una sintaxis diferente.</p>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h1>Fin</h1>
+            <small>(por fin, loco, no se terminaba más...)</small>
+            <aside class="notes">
+            </aside>
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        allottedTime: 60 * 60 * 1000, // 2 hour
+        controlsTutorial: false,
+        menu: {
+            keyboard: false
+        },
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+
+            // "c" o "b" para escribir en la pantalla, click derecho para borrar,
+            // "supr" para borrar 100% (más info en la doc oficial del plugin)
+            {src: 'plugin/chalkboard/chalkboard.js'},
+
+            // "s" para ver las notas del presentador
+            {src: 'plugin/notes/notes.js', async: true},
+            // {src: 'https://d3js.org/d3.v4.min.js'},
+            // {src: 'node_modules/reveal.js-d3js/d3js.js'},
+
+            // barra que muestra el progreso del TIEMPO de la presentación, configurable más abajo
+            {src: 'plugin/elapsed-time-bar/elapsed-time-bar.js'},
+
+            // Menu, índice que muestra todas las diapositivas
+            {src: 'node_modules/reveal.js-menu/menu.js'}
+
+        ],
+        keyboard: {
+            81: () => Prism.highlightAll(), // "q" para volver a resaltar el código (útil después de modificarlo)
+            67: function () {
+                RevealChalkboard.toggleNotesCanvas()
+            },	// toggle notes canvas when 'c' is pressed
+            66: function () {
+                RevealChalkboard.toggleChalkboard()
+            },	// toggle chalkboard when 'b' is pressed
+            46: function () {
+                RevealChalkboard.clear()
+            },	// clear chalkboard when 'DEL' is pressed
+            8: function () {
+                RevealChalkboard.reset()
+            },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+            68: function () {
+                RevealChalkboard.download()
+            },	// downlad recorded chalkboard drawing when 'd' is pressed
+        },
+    });
+</script>
+</body>
+</html>
