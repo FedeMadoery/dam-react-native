@@ -42,20 +42,7 @@
                 </small>
             </p>
         </section>
-        <section>
-            <section>
-                <h2>React Native</h2>
-                <p>
-                    React Native, usa JavaScript para acceder a las API de la plataforma nativa, así como para describir
-                    la renderización y el comportamiento de su UI usando componentes React.
-                </p>
-            </section>
-            <section>
-                <h2>Componentes Principales</h2>
-                <img src="./assets/componentes_react_native.png" class="fragment" alt="componentes principales">
-            </section>
-        </section>
-        <section>
+        <section id="react">
             <h3>¿Qué es Reactjs?</h3>
             Reactjs es una librería JavaScript para construir interfaces de usuario.
             Es la V en MVC.
@@ -197,7 +184,7 @@ function formatName(user) {
 
 const user = {
   firstName: 'Juan',
-  lastName: 'Tonina'
+  lastName: 'Dominguez'
 };
 
 const element = (
@@ -208,7 +195,8 @@ const element = (
 //...
             </code></pre>
         </section>
-        <section>El código JSX compila a expresiones JavaScript (llamadas a funciones) que luego evalúan a objetos
+        <section>
+            El código JSX compila a expresiones JavaScript (llamadas a funciones) que luego evalúan a objetos
             JavaScript, por lo que podemos utilizar estas expresiones como cualquier otra (dentro de un
             <code>if</code>,
             pasarlas como parámetro, retornarlas, etc.)
@@ -311,7 +299,8 @@ arrayDeCosas.map(obj => obj.id); // retorna [1, 2]
       }
     }
                 </code></pre>
-                <aside class="notes">Definir los componentes como clases o como funciones nos da algunas libertades y funcionalidades que
+                <aside class="notes">
+                    Definir los componentes como clases o como funciones nos da algunas libertades y funcionalidades que
                     vamos a ver más adelante
                 </aside>
             </section>
@@ -329,11 +318,6 @@ arrayDeCosas.map(obj => obj.id); // retorna [1, 2]
         &lt;/div>
       );
     }
-
-    ReactDOM.render(
-      &lt;App />,
-      document.getElementById('root')
-    );
                 </code></pre>
                 <aside class="notes">
                     Esta estructura con un componente <i>App</i> que sirve de raíz y contiene a todos los
@@ -377,7 +361,6 @@ arrayDeCosas.map(obj => obj.id); // retorna [1, 2]
     }
                 </code></pre>
                 <aside class="notes">
-                    Si recuerdan, esto debía ser pasado a ReactDOM.render cada segundo para actualizar el DOM.
                     Antes mencionamos que los components definidos como funciones tenían algunos features extra, comparados con
                     los componentes de clases.
                     El useState es un buen ejemplo de eso: una funcionalidad exclusiva de los componentes definidos como
@@ -397,11 +380,6 @@ arrayDeCosas.map(obj => obj.id); // retorna [1, 2]
           &lt;/div>
         );
     }
-
-    ReactDOM.render(
-      &lt;Reloj />,
-      document.getElementById('root')
-    );
                 </code></pre>
                 <aside class="notes">
                     Acá hicimos dos cosas:
@@ -535,7 +513,7 @@ setState( prevState => ({
 
                 </code></pre>
                 <aside class="notes">
-                    <p>El método useEffect se ejecuta después de que elemento se renderiza en el DOM.</p>
+                    <p>El método useEffect se ejecuta después de que elemento se renderiza.</p>
                     <p>Guardamos el ID del intervalo en una variable (useState)</p>
                     <p>Detenemos el intervalo al desmontar el componente.</p>
                 </aside>
@@ -577,13 +555,11 @@ function Toggle(props)  {
     setState(prevState => !prevState.isToggleOn);
   }
 
-  render() {
     return (
       &lt;button onClick={handleClick}>
         {isToggleOn ? 'ON' : 'OFF'}
       &lt;/button>
     );
-  }
 }
 
             </code></pre>
@@ -604,11 +580,6 @@ function Toggle(props)  {
       }
       return &lt;GuestGreeting/>;
     }
-
-    ReactDOM.render(
-      &lt;Greeting isLoggedIn={false}/>,
-      document.getElementById('root')
-    );
                 </code></pre>
                 <aside class="notes">De hecho, la lógica de renderizado se escribe en JavaScript (aunque a veces esté
                     embebido en JSX)
@@ -694,10 +665,8 @@ function Toggle(props)  {
     }
 
     const numbers = [1, 2, 3, 4, 5];
-    ReactDOM.render(
-      &lt;NumberList numbers={numbers} />,
-      document.getElementById('root')
-    );
+    &lt;NumberList numbers={numbers} />;
+
                 </code></pre>
                 <aside class="notes">
                     ¿Se acuerdan del método map?
@@ -756,19 +725,14 @@ function NameForm(props){
         setState({value: event.target.value});
     }
 
-    handleSubmit = (event) => {
-        alert('A name was submitted: ' + state.value);
-        event.preventDefault();
-    }
-
     return (
-      &lt;form onSubmit={handleSubmit}>
+      &lt;div>
         &lt;label>
           Name:
           &lt;input type="text" value={state.value} onChange={handleChange}/>
         &lt;/label>
         &lt;input type="submit" value="Submit"/>
-      &lt;/form>
+      &lt;/div>
     );
 }
         </code></pre>
@@ -810,7 +774,7 @@ function NameForm(props){
     }
 
   return (
-    &lt;form>
+    &lt;div>
       &lt;label>
         Is going:
         &lt;input
@@ -828,7 +792,7 @@ function NameForm(props){
                 value={state.numberOfGuests}
                 onChange={handleInputChange}/>
       &lt;/label>
-    &lt;/form>
+    &lt;/div>
   );
 }
             </code></pre>
@@ -908,14 +872,12 @@ function TemperatureInput () {
             <section>
                 <pre><code class="language-jsx" contenteditable>
 function Calculator() {
-  render() {
     return (
       &lt;div>
         &lt;TemperatureInput scale="c"/>
         &lt;TemperatureInput scale="f"/>
       &lt;/div>
     );
-  }
 }
             </code></pre>
                 <aside class="notes">
@@ -1098,13 +1060,7 @@ function WelcomeDialog() {
                 <pre><code class="language-jsx" contenteditable>
 function App() {
   return (
-    &lt;SplitPane
-            left={
-        &lt;Contacts/>
-      }
-      right={
-        &lt;Chat/>
-      } />
+    &lt;SplitPane left={&lt;Contacts/>} right={&lt;Chat/>} />
   );
 }
 
@@ -1165,7 +1121,6 @@ function App() {
       &lt;/ThemeContext.Provider>
     );
 }
-
 
 function Toolbar(props) {
   return (
@@ -1243,8 +1198,7 @@ function ThemeTogglerButton() {
   const { toggleTheme, theme }  = React.useContext(ThemeContext)
 
   return (
-    &lt;button
-            onClick={toggleTheme}
+    &lt;button onClick={toggleTheme}
             style={{backgroundColor: theme.background}}>
       Toggle Theme
     &lt;/button>
@@ -1272,11 +1226,11 @@ export default ThemeTogglerButton;
                 </code></pre>
                 <pre class="fragment"><code class="language-jsx" contenteditable>
     const person = new Person('Mafe');
-    const otherPerson = new Person('Clark');
+    const samePerson = person;
 
-    giveAwesomePowers(otherPerson);
+    giveAwesomePowers(person);
 
-    console.log('are they the same?', person === otherPerson);
+    console.log('are they the same?', person === samePerson);
 
                 </code></pre>
             </section>
@@ -1321,6 +1275,19 @@ handleClick() {
             <small>(por fin, loco, no se terminaba más...)</small>
             <aside class="notes">
             </aside>
+        </section>
+        <section id="react-native">
+            <section>
+                <h2>React Native</h2>
+                <p>
+                    React Native, usa JavaScript para acceder a las API de la plataforma nativa, así como para describir
+                    la renderización y el comportamiento de su UI usando componentes React.
+                </p>
+            </section>
+            <section>
+                <h2>Componentes Principales</h2>
+                <img src="./assets/componentes_react_native.png" class="fragment" alt="componentes principales">
+            </section>
         </section>
 
     </div>
