@@ -337,7 +337,7 @@ arrayDeCosas.map(obj => obj.id); // retorna [1, 2]
                 </aside>
             </section>
             <section>
-                Hasta ahora, la única forma de modificar un componente, era recreándolo y llamando a render de nuevo
+                Hasta ahora, la única forma de modificar un componente, era recreándolo
                 <img src="assets/hay%20otra%20forma.gif">
             </section>
         </section>
@@ -518,53 +518,6 @@ setState( prevState => ({
                     <p>Detenemos el intervalo al desmontar el componente.</p>
                 </aside>
             </section>
-        </section>
-        <section id="event">
-            <p>Moverlo RN</p>
-
-            <section><h1>Eventos</h1></section>
-            <section>
-                Los eventos en React son similares a los eventos del DOM, pero con algunas diferencias:
-                <pre><code class="language-jsx" contenteditable>
-
-const ActionLink = () => {
-  const handleClick = (e) => {
-    /*La única forma de prevenir el comportamiento por defecto
-        es usando e.preventDefault() (y no retornando false)*/
-    e.preventDefault();
-    console.log('Clickity.');
-  }
-
-  return (
-    /*el evento se escribe con camelCase ("onClick") y
-        no en minúsculas*/
-    &lt;a href="#" onClick={handleClick}>
-      Click me
-    &lt;/a>
-  );
-}
-            </code></pre>
-            </section>
-            <section>
-            <p>Moverlo RN</p>
-            <pre><code class="language-jsx" contenteditable>
-function Toggle(props)  {
-   const [isToggleOn, setToggle] = useState(true);
-
-  handleClick = () => {
-    setState(prevState => !prevState.isToggleOn);
-  }
-
-    return (
-      &lt;button onClick={handleClick}>
-        {isToggleOn ? 'ON' : 'OFF'}
-      &lt;/button>
-    );
-}
-
-            </code></pre>
-        </section>
-
         </section>
         <section id="conditional">
             <section>
@@ -1289,6 +1242,195 @@ handleClick() {
                 <img src="./assets/componentes_react_native.png" class="fragment" alt="componentes principales">
             </section>
         </section>
+        <section id="event">
+            <section><h1>Eventos</h1></section>
+            <section>
+                Los eventos en React Native son similares a los eventos del Android, pero con algunas diferencias:
+                <pre>
+                    <code class="language-jsx" contenteditable>
+
+const ActionLink = () => {
+  const handlePress = (e) => {
+    console.log('Clickity.');
+  }
+
+  return (
+    &lt;Button onPress={handlePress}>
+      Click me
+    &lt;/Button>
+  );
+}
+            </code>
+                </pre>
+                <pre><code class="language-jsx" contenteditable>
+{
+    changedTouches: [PressEvent],
+    identifier: 1,
+    locationX: 8,
+    locationY: 4.5,
+    pageX: 24,
+    pageY: 49.5,
+    target: 1127,
+    timestamp: 85131876.58868201,
+    touches: []
+}
+                </code></pre>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+function Toggle(props)  {
+   const [isToggleOn, setToggle] = useState(true);
+
+  handlePress = () => {
+    setState(prevState => !prevState.isToggleOn);
+  }
+  handleLongPress = () => {
+    console.log('Long press.');
+  }
+
+    return (
+      &lt;TouchableOpacity onPress={handlePress} onLongPress={handleLongPress}>
+        &lt;Text>
+            {isToggleOn ? 'ON' : 'OFF'}
+        &lt;/Text>
+      &lt;/TouchableOpacity>
+    );
+}
+
+            </code></pre>
+            </section>
+        </section>
+
+        <section id="list-view">
+            <section>
+                <h2>List View</h2>
+            </section>
+            <section>
+                <p class="fragment">
+                    React Native, nos provee de dos componentes para el renderizado de listas. </p>
+                <p class="fragment">
+                    El principal y más comun es FlatList, el cual nos permite renderizar una lista de elementos basado en
+                    un set de datos.
+                </p>
+                <p class="fragment">
+                    Por otro lado, tenemos también SectionList, que nos permite renderizar una lista de elementos por secciones.
+                </p>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+
+        // ScrollView
+        https://snack.expo.dev/oj6vH7dqT
+
+        // FlatList
+        https://snack.expo.dev/GeQJEAyNP4
+
+        // SectionList
+        https://snack.expo.dev/bVKzkudKI
+            </code></pre>
+                <aside class="notes">
+                    <p>
+                        Hablar de las diferencias entre hacer una lista con ScrollView y con FlatList. FlatList es más eficiente, y solo renderiza lo que se ve.
+                    </p>
+                </aside>
+            </section>
+        </section>
+        <section id="async-storage">
+            <section>
+                <h2>Async Storage</h2>
+
+                <p class="fragment">AsyncStoragees un sistema de almacenamiento de clave/valor no cifrado, asíncrono y persistente, que es global para la aplicación.</p>
+
+                <p class="fragment">
+                    En iOS, AsyncStorageestá almacena valores pequeños en un diccionario serializado y valores más grandes
+                    en archivos separados. En Android, AsyncStorage usa RocksDB o SQLite según lo que esté disponible.
+                </p>
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+
+        // Guardar
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem('@storage_Key', jsonValue)
+
+        // Leer
+        let value;
+        const jsonValue = await AsyncStorage.getItem('@storage_Key')
+        if(value !== null) {
+          value = JSON.parse(jsonValue)
+        }
+
+                </code></pre>
+
+                <aside class="notes">
+                    <p>
+                        setItem crea el registro si no existe o lo actualiza si ya existe.
+
+                        getItem devuelve el valor de la clave, o null si no existe.
+
+                        Hablar de los Jsons.
+
+                        Usar try/catch para manejar errores.
+                    </p>
+                </aside>
+            </section>
+        </section>
+        <section id="navigation">
+            <section>
+                <h2>Navigation</h2>
+                <a target="_blank" href="https://reactnavigation.org/">https://reactnavigation.org/</a>
+            </section>
+            <section>
+                <p>
+                    React Navigation es una librería para la navegación en React Native.
+                    Es una librería que nos permite crear una navegación de aplicaciones
+                    muy sencilla y rápida.
+                </p>
+                <p class="fragment"> Instalación: <a target="_blank" href="https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project">here</a></p>
+                <aside class="notes">
+                    <p>
+                        El proceso de instalacion podria ser medio tedioso, pero cuando lo hicimos por primera vez, ya se vuelve comun.
+                    </p>
+                </aside>
+            </section>
+            <section>
+                <p>Entre las utilidades que nos provee React Navigation, nos encontramos con varios "formatos" de navegacion.</p>
+                <span style="font-size: 18px; color: lightgrey">
+                    Cada uno de ellos pueden ser usado en conjunto con otros (esto requiere un manejo más avanzado de la librería)
+                </span>
+            </section>
+            <section>
+                <h3>Tab Navigation</h3>
+                <img src="https://reactnavigation.org/assets/images/tabs-badges-94675c8566521656189422362d92cf9e.png"/>
+            </section>
+            <section>
+                <h3>Drawer Navigation</h3>
+                <video data-autoplay src="https://reactnavigation.org/assets/navigators/drawer/drawer.mov"/>
+            </section>
+            <section>
+                <h3>Stack Navigation</h3>
+                <video data-autoplay src="https://reactnavigation.org//assets/navigators/stack/stack-push.mov" />
+            </section>
+            <section>
+                <pre><code class="language-jsx" contenteditable>
+        // Ejemplo
+        // https://snack.expo.dev/XjKrMft1g
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    &lt;NavigationContainer>
+      &lt;Stack.Navigator initialRouteName="Home">
+        &lt;Stack.Screen name="Home" component={HomeScreen} />
+        &lt;Stack.Screen name="Details" component={DetailsScreen} />
+      &lt;/Stack.Navigator>
+    &lt;/NavigationContainer>
+  );
+}
+                </code></pre>
+
+            </section>
+        </section>
 
     </div>
 </div>
@@ -1303,6 +1445,7 @@ handleClick() {
     Reveal.initialize({
         allottedTime: 60 * 60 * 1000, // 2 hour
         controlsTutorial: false,
+        autoPlayMedia: true,
         menu: {
             keyboard: false
         },
