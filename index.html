@@ -1246,22 +1246,18 @@ handleClick() {
             <section><h1>Eventos</h1></section>
             <section>
                 Los eventos en React Native son similares a los eventos del Android, pero con algunas diferencias:
-                <pre>
-                    <code class="language-jsx" contenteditable>
-
+                <pre><code class="language-jsx" contenteditable>
 const ActionLink = () => {
   const handlePress = (e) => {
     console.log('Clickity.');
   }
-
   return (
     &lt;Button onPress={handlePress}>
       Click me
     &lt;/Button>
   );
 }
-            </code>
-                </pre>
+            </code></pre>
                 <pre><code class="language-jsx" contenteditable>
 {
     changedTouches: [PressEvent],
@@ -1300,7 +1296,71 @@ function Toggle(props)  {
             </code></pre>
             </section>
         </section>
+        <section id="layout">
+            <section>
+                <h2>
+                    Layout
+                </h2>
+                <p>
+                    Los componentes especifican el tamaño y posicion de sus hijos usando el algoritmo flexbox. Con flexbox
+                    podemos especificar que se expande y que se encoge para llenar pantallas de varias dimensiones.
+                </p>
+                <span style="font-size: 18px; color: lightgrey">
+                   Flexbox se implementa con la biblioteca <a target="_blank" href="https://yogalayout.com/">Yoga </a>.
+                </span>
+            </section>
+            <section>
+                <h3>Orientación</h3>
+                <p>Para poder posicionar los hijos de un componente, tenemos 3 propiedades fundamentales.</p>
 
+                <aside class="notes">
+                    Aclarar que necesitamos pensar en dos dimensiones, una para el ancho y otra para el alto.
+                </aside>
+            </section>
+            <section>
+                <h4>flexDirection</h4>
+                <p class="fragment">
+                    ¿Queremos un layout vertical (column) u horizontal (row)? Esto determina la orientación del eje principal de nuestro layout.
+                </p>
+            </section>
+            <section>
+                <code class="language-jsx" contenteditable>
+flexDirection: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+                </code>
+            </section>
+            <section>
+                <img src="https://jonmircha.com/img/blog/flex-direction.png" alt="">
+            </section>
+            <section>
+                <h4 class="fragment">justifyContent</h4>
+                <p class="fragment">
+                    ¿Cómo debería distribuirse el contenido a lo largo del eje principal de nuestro layout? ¿Debería estar al principio, en el centro, al final o con espaciados uniformes?
+                </p>
+            </section>
+            <section>
+                <code class="language-jsx" contenteditable>
+justifyContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+                </code>
+            </section>
+            <section>
+                <img width="400" src="https://jonmircha.com/img/blog/justify-content.png" alt="">
+            </section>
+            <section>
+                <h4 class="fragment">alignItems</h4>
+                <p class="fragment">
+                    ¿Cómo debería alinearse el contenido a lo largo del eje secundario de nuestro layout? (Si el eje primario es row,
+                    entonces el eje secundario es column, o viceversa) ¿Debería alinearse el contenido al principio, al centro, al final o estirado?
+                </p>
+            </section>
+            <section>
+                <code class="language-jsx" contenteditable>
+alignItems: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
+                </code>
+            </section>
+            <section>
+                <img width="400" src="https://jonmircha.com/img/blog/align-items.png" alt="">
+            </section>
+        </section>
         <section id="list-view">
             <section>
                 <h2>List View</h2>
@@ -1348,18 +1408,16 @@ function Toggle(props)  {
             </section>
             <section>
                 <pre><code class="language-jsx" contenteditable>
+// Guardar
+const jsonValue = JSON.stringify(value)
+await AsyncStorage.setItem('@storage_Key', jsonValue)
 
-        // Guardar
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem('@storage_Key', jsonValue)
-
-        // Leer
-        let value;
-        const jsonValue = await AsyncStorage.getItem('@storage_Key')
-        if(value !== null) {
-          value = JSON.parse(jsonValue)
-        }
-
+// Leer
+let value;
+const jsonValue = await AsyncStorage.getItem('@storage_Key')
+if(value !== null) {
+  value = JSON.parse(jsonValue)
+}
                 </code></pre>
 
                 <aside class="notes">
